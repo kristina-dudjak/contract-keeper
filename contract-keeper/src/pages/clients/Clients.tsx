@@ -1,12 +1,13 @@
-import { clients } from "../../utils/Clients"
-import "./Customers.css"
+import "./Clients.css"
 import openFile from "../../assets/openFile.svg"
 import { Link } from "react-router-dom"
+import DataService from "../../services/DataService"
 
-export default function Customers() {
+export default function Clients() {
+  const clients = DataService.getClients()
   return (
     <div className="container">
-      <h1 className="title">Customers</h1>
+      <h1 className="title">Clients</h1>
       <div>
         <input type="search" placeholder="Search..." />
         <Link to="new">New</Link>
@@ -27,10 +28,11 @@ export default function Customers() {
               <td>{client.name}</td>
               <td>{client.email}</td>
               <td>{client.phone}</td>
-              <td>{client.contracts.length}</td>
-              <Link to={`${client.name}`}>
-                <img src={openFile} alt="Open file icon" />
-              </Link>
+              <td>
+                <Link to={`${client.name}`}>
+                  <img src={openFile} alt="Open file icon" />
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>
