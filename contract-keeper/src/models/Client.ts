@@ -3,5 +3,4 @@ interface Client {
   name: string
   email: string
   phone: number
-  contracts: Contract[]
 }
