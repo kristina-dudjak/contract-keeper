@@ -2,7 +2,7 @@ interface Contract {
   id: number
   name: string
   clientId: number
-  beginDate: string
-  endDate: string
+  startDate: Date
+  endDate: Date
   details: string
 }

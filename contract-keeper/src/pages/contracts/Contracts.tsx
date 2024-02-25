@@ -1,72 +1,33 @@
-import { Link } from "react-router-dom"
 import "./Contracts.css"
-import openFile from "../../assets/openFile.svg"
-import searchSvg from "../../assets/search.svg"
 import DataService from "../../services/DataService"
 import { useEffect, useState } from "react"
+import ContractsTable from "../../components/contractsTable/ContractsTable"
+import DatePicker from "../../components/datePicker/DatePicker"
+import Search from "../../components/search/Search"
+import { Link } from "react-router-dom"
 
 export default function Contracts() {
-  const contracts = DataService.getContracts()
-  const [searchText, setSearchText] = useState<string>("")
-  const [filteredContracts, setFilteredContracts] =
-    useState<Contract[]>(contracts)
+  const [filteredContracts, setFilteredContracts] = useState<Contract[]>([])
 
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      filterContracts()
-    }, 300)
+    setFilteredContracts(DataService.getContracts())
+  }, [])
 
-    return () => clearTimeout(delayDebounceFn)
-  }, [searchText])
+  function searchByName(query: string) {
+    setFilteredContracts(DataService.searchContracts(query))
+  }
 
-  const filterContracts = () => {
-    const filtered = contracts.filter((contract) =>
-      contract.name.toLowerCase().includes(searchText.toLowerCase())
-    )
-    setFilteredContracts(filtered)
+  function searchByDate(date: Date | null) {
+    setFilteredContracts(DataService.searchContractsByDate(date))
   }
 
   return (
     <div className="container">
       <h1 className="title">Contracts</h1>
-      <div className="search">
-        <input
-          className="searchInput"
-          type="text"
-          value={searchText}
-          placeholder="Search contracts..."
-          onChange={(event) => setSearchText(event.target.value)}
-        />
-        <img className="searchIcon" src={searchSvg} alt="Search icon" />
-      </div>
-      <table className="table">
-        <thead>
-          <tr className="row">
-            <th>Client</th>
-            <th>Contract</th>
-            <th>Begin date</th>
-            <th>End date</th>
-            <th>Details</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredContracts.map((contract) => (
-            <tr className="row" key={contract.id}>
-              <td>{DataService.getClient(contract.clientId)?.name}</td>
-              <td>{contract.name}</td>
-              <td>{contract.beginDate}</td>
-              <td>{contract.endDate}</td>
-              <td>{contract.details}</td>
-              <td>
-                <Link to={`${contract.id}`}>
-                  <img src={openFile} alt="Open file icon" />
-                </Link>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Link to="new">New</Link>
+      <Search onQueryChange={searchByName} />
+      <DatePicker onDateChange={searchByDate} />
+      <ContractsTable contracts={filteredContracts} />
     </div>
   )
 }
