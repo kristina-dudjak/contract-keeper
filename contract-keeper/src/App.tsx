@@ -10,7 +10,8 @@ import Header from "./components/header/Header"
 import Clients from "./pages/clients/Clients"
 import ClientEditor from "./pages/clientEditor/ClientEditor"
 import Client from "./pages/client/Client"
-import Contract from "./pages/contract/Contract"
+import ContractView from "./pages/contractView/ContractView"
+import ContractEditor from "./pages/contractEditor/ContractEditor"
 
 export default function App() {
   const router = createBrowserRouter([
@@ -31,8 +32,12 @@ export default function App() {
                   Component: Contracts,
                 },
                 {
+                  path: "new",
+                  Component: ContractEditor,
+                },
+                {
                   path: ":contractId",
-                  Component: Contract,
+                  Component: ContractView,
                 },
               ],
             },
@@ -58,7 +63,6 @@ export default function App() {
       ],
     },
   ])
-
   return <RouterProvider router={router} />
 }
 

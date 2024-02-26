@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import DataService from "../../services/DataService"
 import openFile from "../../assets/openFile.svg"
+import Contract from "../../models/Contract"
 
 interface ContractsTableProps {
   contracts: Contract[]
@@ -28,7 +29,7 @@ export default function ContractsTable({ contracts }: ContractsTableProps) {
             <td>{contract.endDate.toLocaleDateString()}</td>
             <td>{contract.details}</td>
             <td>
-              <Link to={`${contract.id}`}>
+              <Link to={contract.id}>
                 <img src={openFile} alt="Open file icon" />
               </Link>
             </td>

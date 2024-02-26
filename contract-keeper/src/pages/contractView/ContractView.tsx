@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom"
-import "./Contract.css"
+import "./ContractView.css"
+import Contract from "../../models/Contract"
 import DataService from "../../services/DataService"
 
-export default function Contract() {
+export default function ContractView() {
   const { contractId } = useParams()
-  const parsedContractId = contractId ? parseInt(contractId) : undefined
   const contract: Contract | undefined = DataService.getContracts().find(
-    (contract) => parsedContractId === contract.id
+    (contract) => contractId === contract.id
   )
 
   return (
@@ -17,10 +17,10 @@ export default function Contract() {
         <p>{contract?.id}</p>
         <h3>Name</h3>
         <p>{contract?.name}</p>
-        <h3>Begin date</h3>
-        <p>{contract?.beginDate}</p>
+        <h3>Start date</h3>
+        <p>{contract?.startDate.toLocaleDateString()}</p>
         <h3>End date</h3>
-        <p>{contract?.endDate}</p>
+        <p>{contract?.endDate.toLocaleDateString()}</p>
         <h3>Details</h3>
         <p>{contract?.details}</p>
       </div>

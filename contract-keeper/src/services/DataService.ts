@@ -1,43 +1,46 @@
-class DataService {
-  private contracts: Contract[] = [
-    {
-      id: 0,
-      name: "Contract A",
-      clientId: 0,
-      startDate: new Date(),
-      endDate: new Date(),
-      details: "Contract details",
-    },
-    {
-      id: 1,
-      name: "Contract B",
-      clientId: 0,
-      startDate: new Date(),
-      endDate: new Date(),
-      details: "Contract details",
-    },
-    {
-      id: 2,
-      name: "Contract A",
-      clientId: 1,
-      startDate: new Date(),
-      endDate: new Date(),
-      details: "Contract details",
-    },
-  ]
+import { v4 as uuid } from "uuid"
+import Contract from "../models/Contract"
 
+class DataService {
   private clients: Client[] = [
     {
-      id: 0,
+      id: uuid(),
       name: "John Doe",
       email: "john.doe@gmail.com",
       phone: 1,
     },
     {
-      id: 1,
+      id: uuid(),
       name: "Johnny Doe",
       email: "johnny.doe@gmail.com",
       phone: 1,
+    },
+  ]
+
+  private contracts: Contract[] = [
+    {
+      id: uuid(),
+      name: "Contract A",
+      clientId: this.clients[0].id,
+      startDate: new Date(),
+      endDate: new Date(),
+      details: "Contract details",
+    },
+    {
+      id: uuid(),
+      name: "Contract B",
+      clientId: this.clients[0].id,
+      startDate: new Date(),
+      endDate: new Date(),
+      details: "Contract details",
+    },
+    {
+      id: uuid(),
+      name: "Contract A",
+      clientId: this.clients[1].id,
+      startDate: new Date(),
+      endDate: new Date(),
+      details: "Contract details",
     },
   ]
 
@@ -49,11 +52,11 @@ class DataService {
     return this.clients
   }
 
-  getClient(clientId: number): Client | undefined {
+  getClient(clientId: string): Client | undefined {
     return this.clients.find((client) => client.id === clientId)
   }
 
-  getClientContracts(clientId: number): Contract[] {
+  getClientContracts(clientId: string): Contract[] {
     return this.contracts.filter((contract) => contract.clientId === clientId)
   }
 
@@ -80,6 +83,23 @@ class DataService {
           this.isInRange(contract.startDate, contract.endDate, date)
         )
       : this.contracts
+  }
+
+  saveContract(
+    name: string,
+    clientId: string,
+    startDate: Date,
+    endDate: Date,
+    details: string
+  ) {
+    this.contracts.push({
+      id: uuid(),
+      clientId: clientId,
+      name: name,
+      startDate: startDate,
+      endDate: endDate,
+      details: details,
+    })
   }
 }
 

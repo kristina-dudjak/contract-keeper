@@ -1,7 +1,7 @@
-interface Contract {
-  id: number
+export default interface Contract {
+  id: string
   name: string
-  clientId: number
+  clientId: string
   startDate: Date
   endDate: Date
   details: string
