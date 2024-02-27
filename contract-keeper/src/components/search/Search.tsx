@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import searchSvg from "../../assets/search.svg"
+import "./Search.css"
 
 interface SearchProps {
   onQueryChange: (query: string) => void
@@ -18,13 +19,13 @@ export default function Search({ onQueryChange }: SearchProps) {
   return (
     <div className="search">
       <input
-        className="searchInput"
+        className="input"
         type="text"
         value={query}
         placeholder="Contract or client name"
         onChange={(e) => setQuery(e.target.value)}
       />
-      <img className="searchIcon" src={searchSvg} alt="Search icon" />
+      <img className="icon" src={searchSvg} alt="Search icon" />
     </div>
   )
 }

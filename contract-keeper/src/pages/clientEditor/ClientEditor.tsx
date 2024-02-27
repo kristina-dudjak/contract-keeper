@@ -1,24 +1,18 @@
+import { Link, useParams } from "react-router-dom"
+import ClientForm from "../../components/clientForm/ClientForm"
 import "./ClientEditor.css"
 
 export default function ClientEditor() {
+  const { clientId } = useParams()
   return (
-    <div className="editor">
-      <h1 className="title">Clients / Edit</h1>
-      <div className="divider">
-        <form className="form">
-          <label>Full name</label>
-          <input type="text" />
-          <label>Email</label>
-          <input type="email" />
-          <label>Phone</label>
-          <input type="number" />
-          <a href="">+ add contracts</a>
-          <input type="submit" value="Add"></input>
-        </form>
-        <div className="contractss">
-          <button>Click to add a new contract</button>
-        </div>
-      </div>
+    <div className="clientEditor">
+      <h2 className="title">
+        <Link className="link" to="/clients">
+          Clients /
+        </Link>{" "}
+        {clientId ? "Edit" : "New"}
+      </h2>
+      <ClientForm />
     </div>
   )
 }

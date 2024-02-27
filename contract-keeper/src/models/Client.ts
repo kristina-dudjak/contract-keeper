@@ -1,6 +1,6 @@
-interface Client {
+export default interface Client {
   id: string
   name: string
   email: string
-  phone: number
+  phone: string
 }

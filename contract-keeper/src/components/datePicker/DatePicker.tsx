@@ -16,9 +16,10 @@ export default function DatePicker({
   onDateChange,
 }: DateFilterProps) {
   return (
-    <>
-      {label && <label>{label}</label>}
+    <div className="field">
+      {label && <label className="label">{label}</label>}
       <input
+        className="input"
         type="date"
         name={name}
         value={value}
@@ -26,7 +27,7 @@ export default function DatePicker({
           onDateChange(e.target.value ? new Date(e.target.value) : null)
         }
       />
-      {error && <p>{error}</p>}
-    </>
+      {error && <h5 className="error">{error}</h5>}
+    </div>
   )
 }

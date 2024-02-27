@@ -5,6 +5,7 @@ import ContractsTable from "../../components/contractsTable/ContractsTable"
 import DatePicker from "../../components/datePicker/DatePicker"
 import Search from "../../components/search/Search"
 import { Link } from "react-router-dom"
+import Contract from "../../models/Contract"
 
 export default function Contracts() {
   const [filteredContracts, setFilteredContracts] = useState<Contract[]>([])
@@ -22,12 +23,21 @@ export default function Contracts() {
   }
 
   return (
-    <div className="container">
-      <h1 className="title">Contracts</h1>
-      <Link to="new">New</Link>
-      <Search onQueryChange={searchByName} />
-      <DatePicker onDateChange={searchByDate} />
-      <ContractsTable contracts={filteredContracts} />
+    <div className="contracts">
+      <h2 className="title">Contracts</h2>
+      <div className="actions">
+        <div className="filters">
+          <Search onQueryChange={searchByName} />
+          <DatePicker onDateChange={searchByDate} />
+        </div>
+        <Link className="new button" to="new">
+          Add new contract
+        </Link>
+      </div>
+      {filteredContracts.length !== 0 && (
+        <ContractsTable contracts={filteredContracts} />
+      )}
+      {filteredContracts.length == 0 && <p>empty</p>}
     </div>
   )
 }

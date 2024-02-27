@@ -9,7 +9,7 @@ import Contracts from "./pages/contracts/Contracts"
 import Header from "./components/header/Header"
 import Clients from "./pages/clients/Clients"
 import ClientEditor from "./pages/clientEditor/ClientEditor"
-import Client from "./pages/client/Client"
+import ClientView from "./pages/clientView/ClientView"
 import ContractView from "./pages/contractView/ContractView"
 import ContractEditor from "./pages/contractEditor/ContractEditor"
 
@@ -37,7 +37,16 @@ export default function App() {
                 },
                 {
                   path: ":contractId",
-                  Component: ContractView,
+                  children: [
+                    {
+                      index: true,
+                      Component: ContractView,
+                    },
+                    {
+                      path: "edit",
+                      Component: ContractEditor,
+                    },
+                  ],
                 },
               ],
             },
@@ -55,8 +64,17 @@ export default function App() {
               Component: ClientEditor,
             },
             {
-              path: ":clientName",
-              Component: Client,
+              path: ":clientId",
+              children: [
+                {
+                  index: true,
+                  Component: ClientView,
+                },
+                {
+                  path: "edit",
+                  Component: ClientEditor,
+                },
+              ],
             },
           ],
         },

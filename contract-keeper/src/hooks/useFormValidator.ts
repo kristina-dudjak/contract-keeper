@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react"
 import DataService from "../services/DataService"
+import isPhoneValid from "../utils/phoneUtils"
 
 const useFormValidation = () => {
   const clients = useMemo(() => DataService.getClients(), [])
@@ -9,7 +10,7 @@ const useFormValidation = () => {
     startDate: "",
     endDate: "",
     details: "",
-    clientName: "",
+    fullName: "",
     email: "",
     phone: "",
   })
@@ -39,14 +40,16 @@ const useFormValidation = () => {
         case "details":
           updatedFormErrors.details = value ? "" : "Details field is required."
           break
-        case "clientName":
-          updatedFormErrors.clientName = value ? "" : "Client name is required."
+        case "fullName":
+          updatedFormErrors.fullName = value ? "" : "Client name is required."
           break
         case "email":
           updatedFormErrors.email = value ? "" : "Email is required."
           break
         case "phone":
-          updatedFormErrors.phone = value ? "" : "Phone is required."
+          updatedFormErrors.phone = isPhoneValid(value)
+            ? ""
+            : "Phone is not valid."
           break
       }
     }

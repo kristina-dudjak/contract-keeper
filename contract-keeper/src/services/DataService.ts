@@ -1,5 +1,6 @@
 import { v4 as uuid } from "uuid"
 import Contract from "../models/Contract"
+import Client from "../models/Client"
 
 class DataService {
   private clients: Client[] = [
@@ -7,13 +8,13 @@ class DataService {
       id: uuid(),
       name: "John Doe",
       email: "john.doe@gmail.com",
-      phone: 1,
+      phone: "099999999",
     },
     {
       id: uuid(),
       name: "Johnny Doe",
       email: "johnny.doe@gmail.com",
-      phone: 1,
+      phone: "099999999",
     },
   ]
 
@@ -24,7 +25,8 @@ class DataService {
       clientId: this.clients[0].id,
       startDate: new Date(),
       endDate: new Date(),
-      details: "Contract details",
+      details:
+        "Contract details Contract details Contract details Contract details Contract details Contract details Contract details Contract details Contract details Contract details Contract details",
     },
     {
       id: uuid(),
@@ -54,6 +56,10 @@ class DataService {
 
   getClient(clientId: string): Client | undefined {
     return this.clients.find((client) => client.id === clientId)
+  }
+
+  getContract(contractId: string): Contract | undefined {
+    return this.contracts.find((contract) => contract.id === contractId)
   }
 
   getClientContracts(clientId: string): Contract[] {
@@ -90,16 +96,69 @@ class DataService {
     clientId: string,
     startDate: Date,
     endDate: Date,
-    details: string
+    details: string,
+    id?: string
   ) {
-    this.contracts.push({
-      id: uuid(),
-      clientId: clientId,
-      name: name,
-      startDate: startDate,
-      endDate: endDate,
-      details: details,
-    })
+    if (id) {
+      this.contracts = this.contracts.map((contract) => {
+        if (contract.id === id) {
+          return {
+            id: id,
+            clientId: clientId,
+            name: name,
+            startDate: startDate,
+            endDate: endDate,
+            details: details,
+          }
+        } else {
+          return contract
+        }
+      })
+    } else {
+      this.contracts.push({
+        id: uuid(),
+        clientId: clientId,
+        name: name,
+        startDate: startDate,
+        endDate: endDate,
+        details: details,
+      })
+    }
+  }
+
+  saveClient(name: string, email: string, phone: string, id?: string) {
+    if (id) {
+      this.clients = this.clients.map((client) => {
+        if (client.id === id) {
+          return {
+            id: id,
+            name: name,
+            email: email,
+            phone: phone,
+          }
+        } else {
+          return client
+        }
+      })
+    } else {
+      this.clients.push({
+        id: uuid(),
+        name: name,
+        email: email,
+        phone: phone,
+      })
+    }
+  }
+
+  deleteContract(id: string) {
+    this.contracts = this.contracts.filter((contract) => contract.id !== id)
+  }
+
+  deleteClient(id: string) {
+    this.contracts = this.contracts.filter(
+      (contract) => contract.clientId !== id
+    )
+    this.clients = this.clients.filter((client) => client.id !== id)
   }
 }
 
