@@ -1,0 +1,14 @@
+.search {
+  position: relative;
+  .input {
+    padding: 8px;
+  }
+
+  .icon {
+    position: absolute;
+    top: 40%;
+    right: 0;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+}

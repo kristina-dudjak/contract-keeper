@@ -5,6 +5,7 @@ import ClientFormData from "../../models/ClientFormData"
 import { PhoneInput } from "react-international-phone"
 import "react-international-phone/style.css"
 import { useNavigate, useParams } from "react-router"
+import "./ClientForm.css"
 
 export default function ClientForm() {
   const { clientId } = useParams()
@@ -73,7 +74,7 @@ export default function ClientForm() {
       <div className="field">
         <label className="label">Phone</label>
         <PhoneInput
-          className="input"
+          className="input phone"
           defaultCountry="hr"
           name="phone"
           value={formData.phone}

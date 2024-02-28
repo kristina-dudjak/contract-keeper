@@ -5,7 +5,7 @@ import "./ContractEditor.css"
 export default function ContractEditor() {
   const { contractId } = useParams()
   return (
-    <div className="contractEditor">
+    <div className="contractEditor container">
       <h2 className="title">
         <Link className="link" to="/contracts">
           Contracts /

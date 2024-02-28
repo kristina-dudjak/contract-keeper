@@ -32,10 +32,10 @@ export default function ClientPicker({
         />
         {error && <h5 className="error">{error}</h5>}
       </div>
-      <datalist id="clients">
+      <datalist className="datalist" id="clients">
         {clients &&
           clients.map((client) => (
-            <option key={client.id} value={client.name} />
+            <option className="option" key={client.id} value={client.name} />
           ))}
       </datalist>
     </>

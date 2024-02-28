@@ -11,25 +11,27 @@ interface ClientsTable {
 export default function ClientsTable({ clients }: ClientsTable) {
   return (
     <table className="table">
-      <thead>
+      <thead className="thead">
         <tr className="row">
-          <th>Client name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Contracts</th>
-          <th></th>
+          <th className="head">Client name</th>
+          <th className="head">Email</th>
+          <th className="head">Phone</th>
+          <th className="head">Contracts</th>
+          <th className="head"></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="tbody">
         {clients.map((client) => (
           <tr className="row" key={client.id}>
-            <td>{client.name}</td>
-            <td>{client.email}</td>
-            <td>{client.phone}</td>
-            <td>{DataService.getClientContracts(client.id).length}</td>
-            <td>
-              <Link to={client.id}>
-                <img src={openFile} alt="Open file icon" />
+            <td className="data">{client.name}</td>
+            <td className="data">{client.email}</td>
+            <td className="data">{client.phone}</td>
+            <td className="data">
+              {DataService.getClientContracts(client.id).length}
+            </td>
+            <td className="data">
+              <Link className="link" to={client.id}>
+                <img className="icon" src={openFile} alt="Open file icon" />
               </Link>
             </td>
           </tr>

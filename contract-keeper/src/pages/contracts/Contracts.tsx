@@ -23,7 +23,7 @@ export default function Contracts() {
   }
 
   return (
-    <div className="contracts">
+    <div className="contracts container">
       <h2 className="title">Contracts</h2>
       <div className="actions">
         <div className="filters">
@@ -37,7 +37,9 @@ export default function Contracts() {
       {filteredContracts.length !== 0 && (
         <ContractsTable contracts={filteredContracts} />
       )}
-      {filteredContracts.length == 0 && <p>empty</p>}
+      {filteredContracts.length == 0 && (
+        <p className="empty">No contracts found.</p>
+      )}
     </div>
   )
 }

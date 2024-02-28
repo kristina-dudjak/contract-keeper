@@ -1,0 +1,9 @@
+.clients {
+  .new {
+    align-self: flex-end;
+  }
+
+  .empty {
+    align-self: center;
+  }
+}

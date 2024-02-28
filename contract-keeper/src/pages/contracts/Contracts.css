@@ -1,0 +1,17 @@
+.contracts {
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+
+    .filters {
+      display: flex;
+      align-items: stretch;
+      gap: 20px;
+    }
+  }
+
+  .empty {
+    align-self: center;
+  }
+}
