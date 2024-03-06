@@ -1,11 +1,16 @@
 import "./Clients.css"
-import { Link } from "react-router-dom"
+import { Link, useLoaderData } from "react-router-dom"
 import DataService from "../../services/DataService"
-import { useMemo } from "react"
 import ClientsTable from "../../components/clientsTable/ClientsTable"
+import Client from "../../models/Client"
+
+export function loader() {
+  const clients = DataService.getClients()
+  return clients
+}
 
 export default function Clients() {
-  const clients = useMemo(() => DataService.getClients(), [])
+  const clients = useLoaderData() as Client[]
 
   return (
     <div className="clients container">
@@ -13,8 +18,11 @@ export default function Clients() {
       <Link className="new button" to="new">
         Add new client
       </Link>
-      {clients.length !== 0 && <ClientsTable clients={clients} />}
-      {clients.length === 0 && <p className="empty">No clients found.</p>}
+      {clients.length ? (
+        <ClientsTable clients={clients} />
+      ) : (
+        <p className="empty">No clients found.</p>
+      )}
     </div>
   )
 }

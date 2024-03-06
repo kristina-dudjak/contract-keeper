@@ -1,29 +1,20 @@
-import { useEffect, useState } from "react"
 import searchSvg from "../../assets/search.svg"
 import "./Search.css"
 
 interface SearchProps {
-  onQueryChange: (query: string) => void
+  defaultValue: string
 }
 
-export default function Search({ onQueryChange }: SearchProps) {
-  const [query, setQuery] = useState<string>("")
-
-  useEffect(() => {
-    const debounce = setTimeout(() => {
-      onQueryChange(query)
-    }, 300)
-    return () => clearTimeout(debounce)
-  }, [query])
-
+export default function Search({ defaultValue }: SearchProps) {
   return (
     <div className="search">
       <input
+        id="q"
         className="input"
-        type="text"
-        value={query}
+        type="search"
+        name="q"
         placeholder="Contract or client name"
-        onChange={(e) => setQuery(e.target.value)}
+        defaultValue={defaultValue}
       />
       <img className="icon" src={searchSvg} alt="Search icon" />
     </div>

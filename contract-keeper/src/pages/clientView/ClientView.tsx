@@ -1,16 +1,11 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link, useLoaderData, useNavigate } from "react-router-dom"
 import DataService from "../../services/DataService"
-import { useMemo } from "react"
 import "./ClientView.css"
+import Client from "../../models/Client"
 
 export default function ClientView() {
-  const { clientId } = useParams()
+  const client = useLoaderData() as Client
   let navigate = useNavigate()
-  const client = useMemo(() => {
-    return clientId
-      ? DataService.getClients().find((client) => client.id === clientId)
-      : undefined
-  }, [clientId])
 
   function deleteClient() {
     if (client) DataService.deleteClient(client.id)

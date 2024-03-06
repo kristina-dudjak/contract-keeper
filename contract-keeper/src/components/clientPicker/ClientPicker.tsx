@@ -2,22 +2,15 @@ import { useMemo } from "react"
 import DataService from "../../services/DataService"
 
 interface ClientPickerProps {
-  value: string
-  onClientPick: (value: string, id?: string) => void
+  defaultValue: string
   error: string
 }
 
 export default function ClientPicker({
-  value,
-  onClientPick,
+  defaultValue,
   error,
 }: ClientPickerProps) {
   const clients = useMemo(() => DataService.getClients(), [])
-
-  function handlePick(value: string) {
-    const client = clients.find((client) => client.name === value)
-    onClientPick(value, client?.id)
-  }
 
   return (
     <>
@@ -26,9 +19,9 @@ export default function ClientPicker({
         <input
           className="input"
           list="clients"
+          name="clientName"
           autoComplete="off"
-          value={value}
-          onChange={(e) => handlePick(e.target.value)}
+          defaultValue={defaultValue}
         />
         {error && <h5 className="error">{error}</h5>}
       </div>

@@ -1,17 +1,18 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link, useLoaderData, useNavigate } from "react-router-dom"
 import "./ContractView.css"
 import DataService from "../../services/DataService"
-import { useMemo } from "react"
+import Contract from "../../models/Contract"
+
+export async function loader({ params }: any) {
+  return DataService.getContract(params.contractId)
+}
 
 export default function ContractView() {
-  const { contractId } = useParams()
+  const contract = useLoaderData() as Contract
   let navigate = useNavigate()
-  const contract = useMemo(() => {
-    return contractId ? DataService.getContract(contractId) : undefined
-  }, [contractId])
 
   function deleteContract() {
-    if (contractId) DataService.deleteContract(contractId)
+    if (contract) DataService.deleteContract(contract.id)
     navigate("../")
   }
 
@@ -21,7 +22,7 @@ export default function ContractView() {
         <Link className="link" to="../">
           Contracts /
         </Link>{" "}
-        {contractId}
+        {contract.id}
       </h2>
 
       {contract && (

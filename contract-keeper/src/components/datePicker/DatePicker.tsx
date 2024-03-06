@@ -3,29 +3,25 @@ import "./DatePicker.css"
 interface DateFilterProps {
   name?: string
   label?: string
-  value?: string
+  defaultValue?: string
   error?: string
-  onDateChange: (date: Date | null) => void
 }
 
 export default function DatePicker({
   name,
   label,
-  value,
+  defaultValue,
   error,
-  onDateChange,
 }: DateFilterProps) {
   return (
     <div className="field">
       {label && <label className="label">{label}</label>}
       <input
+        id="date"
         className="input"
         type="date"
         name={name}
-        value={value}
-        onChange={(e) =>
-          onDateChange(e.target.value ? new Date(e.target.value) : null)
-        }
+        defaultValue={defaultValue}
       />
       {error && <h5 className="error">{error}</h5>}
     </div>

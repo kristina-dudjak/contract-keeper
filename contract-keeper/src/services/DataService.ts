@@ -66,14 +66,25 @@ class DataService {
     return this.contracts.filter((contract) => contract.clientId === clientId)
   }
 
-  searchContracts(query: string): Contract[] {
-    return this.contracts.filter(
-      (contract) =>
-        contract.name.toLowerCase().includes(query.toLowerCase()) ||
-        this.getClient(contract.clientId)
-          ?.name.toLowerCase()
-          .includes(query.toLowerCase())
-    )
+  getClientId(name: string): string {
+    return this.clients.find((client) => client.name === name)!.id
+  }
+
+  searchContracts(query?: string, date?: Date): Contract[] {
+    return this.contracts.filter((contract) => {
+      const matchesName = query
+        ? contract.name.toLowerCase().includes(query.toLowerCase())
+        : true
+      const matchesClient = query
+        ? this.getClient(contract.clientId)
+            ?.name.toLowerCase()
+            .includes(query.toLowerCase())
+        : true
+      const matchesDate = date
+        ? this.isInRange(contract.startDate, contract.endDate, date)
+        : true
+      return (matchesName || matchesClient) && matchesDate
+    })
   }
 
   private isInRange(start: Date, end: Date, date: Date): boolean {
@@ -81,14 +92,6 @@ class DataService {
     start.setHours(0, 0, 0, 0)
     end.setHours(0, 0, 0, 0)
     return date <= end && date >= start
-  }
-
-  searchContractsByDate(date: Date | null): Contract[] {
-    return date
-      ? this.contracts.filter((contract) =>
-          this.isInRange(contract.startDate, contract.endDate, date)
-        )
-      : this.contracts
   }
 
   saveContract(
