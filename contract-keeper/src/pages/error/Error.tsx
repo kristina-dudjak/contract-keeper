@@ -4,7 +4,7 @@ import errorMessage from "../../utils/errorUtils"
 export default function Error() {
   const error = useRouteError()
   return (
-    <div id="error-page">
+    <div id="error-page" className="container">
       <h1>Oops!</h1>
       <p>Sorry, an unexpected error has occurred.</p>
       <p>

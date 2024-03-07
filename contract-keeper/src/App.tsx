@@ -29,6 +29,7 @@ export default function App() {
       errorElement: <Error />,
       children: [
         {
+          errorElement: <Error />,
           children: [
             {
               index: true,

@@ -3,15 +3,15 @@ import DataService from "../../services/DataService"
 import ContractsTable from "../../components/contractsTable/ContractsTable"
 import DatePicker from "../../components/datePicker/DatePicker"
 import Search from "../../components/search/Search"
-import { Form, Link, useLoaderData } from "react-router-dom"
+import { Form, Link, useLoaderData, useSubmit } from "react-router-dom"
 import Contract from "../../models/Contract"
 import { useEffect } from "react"
 
 export function loader({ request }: any) {
   const url = new URL(request.url)
-  const q = url.searchParams.get("q") ?? undefined
-  const dateString = url.searchParams.get("date") ?? undefined
-  const date = dateString ? new Date(dateString) : undefined
+  const q = url.searchParams.get("q")
+  const dateString = url.searchParams.get("date")
+  const date = dateString ? new Date(dateString) : null
   const contracts = DataService.searchContracts(q, date)
   return { contracts, q, dateString }
 }
@@ -22,6 +22,7 @@ export default function Contracts() {
     q: string
     dateString: string
   }
+  const submit = useSubmit()
 
   useEffect(() => {
     const qEl = document.getElementById("q") as HTMLInputElement
@@ -30,13 +31,24 @@ export default function Contracts() {
     dateEL.value = dateString
   }, [q, dateString])
 
+  function handleSubmit(event: any) {
+    const isFirstSearch = q == null
+    submit(event.currentTarget.form, {
+      replace: !isFirstSearch,
+    })
+  }
+
   return (
     <div className="contracts container">
       <h2 className="title">Contracts</h2>
       <div className="actions">
         <Form className="filters" role="search">
-          <Search defaultValue={q} />
-          <DatePicker name={"date"} defaultValue={dateString} />
+          <Search defaultValue={q} updateSearch={handleSubmit} />
+          <DatePicker
+            name={"date"}
+            defaultValue={dateString}
+            updateSearch={handleSubmit}
+          />
         </Form>
         <Link className="new button" to="new">
           Add new contract

@@ -3,9 +3,10 @@ import "./Search.css"
 
 interface SearchProps {
   defaultValue: string
+  updateSearch: (event: React.ChangeEvent) => void
 }
 
-export default function Search({ defaultValue }: SearchProps) {
+export default function Search({ defaultValue, updateSearch }: SearchProps) {
   return (
     <div className="search">
       <input
@@ -15,6 +16,7 @@ export default function Search({ defaultValue }: SearchProps) {
         name="q"
         placeholder="Contract or client name"
         defaultValue={defaultValue}
+        onChange={(event) => updateSearch(event)}
       />
       <img className="icon" src={searchSvg} alt="Search icon" />
     </div>

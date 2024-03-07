@@ -5,6 +5,7 @@ interface DateFilterProps {
   label?: string
   defaultValue?: string
   error?: string
+  updateSearch?: (event: React.ChangeEvent) => void
 }
 
 export default function DatePicker({
@@ -12,6 +13,7 @@ export default function DatePicker({
   label,
   defaultValue,
   error,
+  updateSearch,
 }: DateFilterProps) {
   return (
     <div className="field">
@@ -22,6 +24,7 @@ export default function DatePicker({
         type="date"
         name={name}
         defaultValue={defaultValue}
+        onChange={(event) => updateSearch?.(event)}
       />
       {error && <h5 className="error">{error}</h5>}
     </div>

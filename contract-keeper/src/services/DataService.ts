@@ -70,7 +70,7 @@ class DataService {
     return this.clients.find((client) => client.name === name)!.id
   }
 
-  searchContracts(query?: string, date?: Date): Contract[] {
+  searchContracts(query: string | null, date: Date | null): Contract[] {
     return this.contracts.filter((contract) => {
       const matchesName = query
         ? contract.name.toLowerCase().includes(query.toLowerCase())
