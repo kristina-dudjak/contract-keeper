@@ -6,11 +6,34 @@ import DataService from "../../services/DataService"
 
 export async function action({ request, params }: any) {
   const formData = await request.formData()
-  const updates = Object.fromEntries(formData)
+  const updates: Record<string, string> = Object.fromEntries(formData)
   const { name, clientName, startDate, endDate, details } = updates
+  const errors: any = {}
+  const clients = DataService.getClients()
+  const clientId = DataService.getClientId(clientName)
+
+  if (!name) {
+    errors.name = "Contract name is required."
+  }
+  if (!clientName || !clients.some((client) => client.id === clientId)) {
+    errors.clientName = "Choose a valid client."
+  }
+  if (!startDate) {
+    errors.startDate = "Start date is required."
+  }
+  if (!endDate) {
+    errors.endDate = "End date is required."
+  }
+  if (!details) {
+    errors.details = "Details field is required."
+  }
+  if (Object.keys(errors).length) {
+    return errors
+  }
+
   DataService.saveContract(
     name,
-    DataService.getClientId(clientName),
+    DataService.getClientId(clientName)!,
     new Date(startDate),
     new Date(endDate),
     details,

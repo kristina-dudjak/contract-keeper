@@ -66,8 +66,8 @@ class DataService {
     return this.contracts.filter((contract) => contract.clientId === clientId)
   }
 
-  getClientId(name: string): string {
-    return this.clients.find((client) => client.name === name)!.id
+  getClientId(name: string): string | undefined {
+    return this.clients.find((client) => client.name === name)?.id
   }
 
   searchContracts(query: string | null, date: Date | null): Contract[] {

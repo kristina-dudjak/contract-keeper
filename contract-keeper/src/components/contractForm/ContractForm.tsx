@@ -1,18 +1,17 @@
-import useFormValidation from "../../hooks/useFormValidator"
 import Contract from "../../models/Contract"
 import DataService from "../../services/DataService"
 import formatDate from "../../utils/dateUtils"
 import ClientPicker from "../clientPicker/ClientPicker"
 import DatePicker from "../datePicker/DatePicker"
 import "./ContractForm.css"
-import { Form } from "react-router-dom"
+import { Form, useActionData } from "react-router-dom"
 
 interface ContractFormProps {
   contract: Contract
 }
 
 export default function ContractForm({ contract }: ContractFormProps) {
-  const { formErrors } = useFormValidation()
+  const errors = useActionData() as any
 
   return (
     <Form method="post" className="form">
@@ -23,27 +22,27 @@ export default function ContractForm({ contract }: ContractFormProps) {
           name="name"
           defaultValue={contract ? contract.name : ""}
         />
-        {formErrors.name && <h5 className="error">{formErrors.name}</h5>}
+        {errors?.name && <h5 className="error">{errors.name}</h5>}
       </div>
       <ClientPicker
         defaultValue={
           contract ? DataService.getClient(contract.clientId)!.name : ""
         }
-        error={formErrors.clientId}
+        error={errors?.clientName}
       />
 
       <DatePicker
         name="startDate"
         label="Start date"
         defaultValue={contract ? formatDate(contract.startDate) : ""}
-        error={formErrors.startDate}
+        error={errors?.startDate}
       />
 
       <DatePicker
         name="endDate"
         label="End date"
         defaultValue={contract ? formatDate(contract.endDate) : ""}
-        error={formErrors.endDate}
+        error={errors?.endDate}
       />
 
       <div className="field">
@@ -54,7 +53,7 @@ export default function ContractForm({ contract }: ContractFormProps) {
           defaultValue={contract ? contract.details : ""}
           rows={6}
         />
-        {formErrors.details && <h5 className="error">{formErrors.details}</h5>}
+        {errors?.details && <h5 className="error">{errors.details}</h5>}
       </div>
 
       <button className="submit" type="submit">
