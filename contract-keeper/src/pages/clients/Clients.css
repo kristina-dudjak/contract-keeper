@@ -1,6 +1,13 @@
 .clients {
   .new {
     align-self: flex-end;
+    @media (max-width: 767px) {
+      align-self: center;
+    }
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
   }
 
   .empty {

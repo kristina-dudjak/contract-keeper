@@ -55,7 +55,9 @@ export default function Contracts() {
         </Link>
       </div>
       {contracts.length ? (
-        <ContractsTable contracts={contracts} />
+        <div className="table-wrapper">
+          <ContractsTable contracts={contracts} />
+        </div>
       ) : (
         <p className="empty">No contracts found.</p>
       )}

@@ -4,6 +4,16 @@
   padding: 0 20px;
   color: white;
 
+  @media (max-width: 767px) {
+    padding: 8px;
+  }
+
+  .title {
+    @media (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+
   .nav {
     .list {
       display: flex;

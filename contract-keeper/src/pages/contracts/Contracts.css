@@ -2,13 +2,21 @@
   .actions {
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
 
     .filters {
       display: flex;
-      align-items: stretch;
       gap: 20px;
     }
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
   }
 
   .empty {

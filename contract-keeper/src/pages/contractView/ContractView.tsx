@@ -28,23 +28,25 @@ export default function ContractView() {
       {contract && (
         <>
           <div className="options">
-            <Link className="edit" to="edit">
-              Edit
-            </Link>
+            <button className="edit">
+              <Link className="link" to="edit">
+                Edit
+              </Link>
+            </button>
             <button className="delete" onClick={deleteContract}>
               Delete
             </button>
           </div>
           <div className="info">
-            <div className="field">
+            <div className="field long">
               <h3 className="label">ID:</h3>
               <p className="value">{contract.id}</p>
             </div>
-            <div className="field">
+            <div className="field long">
               <h3 className="label">Name:</h3>
               <p className="value">{contract.name}</p>
             </div>
-            <div className="field">
+            <div className="field long">
               <h3 className="label">Client ID:</h3>
               <p className="value">{contract.clientId}</p>
             </div>

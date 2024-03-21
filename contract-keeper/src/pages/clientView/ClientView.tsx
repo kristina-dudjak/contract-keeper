@@ -23,9 +23,11 @@ export default function ClientView() {
       {client && (
         <>
           <div className="options">
-            <Link className="edit" to="edit">
-              Edit
-            </Link>
+            <button className="edit">
+              <Link className="link" to="edit">
+                Edit
+              </Link>
+            </button>
             <button className="delete" onClick={deleteClient}>
               Delete
             </button>
@@ -33,7 +35,7 @@ export default function ClientView() {
           <div className="info">
             <div className="field">
               <h3 className="label">ID:</h3>
-              <p className="value">{client.id}</p>
+              <p className="value">{client.id} </p>
             </div>
             <div className="field">
               <h3 className="label">Name:</h3>

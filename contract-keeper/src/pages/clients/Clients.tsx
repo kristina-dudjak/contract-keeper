@@ -19,7 +19,9 @@ export default function Clients() {
         Add new client
       </Link>
       {clients.length ? (
-        <ClientsTable clients={clients} />
+        <div className="table-wrapper">
+          <ClientsTable clients={clients} />
+        </div>
       ) : (
         <p className="empty">No clients found.</p>
       )}
