@@ -14,9 +14,12 @@
   "license": "ISC",
   "dependencies": {
     "@types/express": "^4.17.21",
+    "@types/mongoose": "^5.11.97",
     "@types/node": "^20.11.30",
     "concurrently": "^8.2.2",
     "express": "^4.19.1",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.2.3",
     "typescript": "^5.4.3"
   },
   "devDependencies": {
